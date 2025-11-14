@@ -3,23 +3,20 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 
-// Start MSW for development
+// Start MSW for local development only
 async function enableMocking() {
-  if (import.meta.env.MODE !== 'development') {
-    return;
+  // Only enable MSW in development mode
+  if (import.meta.env.DEV) {
+    const { worker } = await import('./mocks/browser');
+    
+    return worker.start({
+      serviceWorker: {
+        url: '/mockServiceWorker.js'
+      },
+      onUnhandledRequest: 'bypass',
+      quiet: false
+    });
   }
-
-  const { worker } = await import('./mocks/browser');
-
-  // `worker.start()` returns a Promise that resolves
-  // once the Service Worker is up and ready to intercept requests.
-  return worker.start({
-    serviceWorker: {
-      url: '/mockServiceWorker.js'
-    },
-    onUnhandledRequest: 'bypass',
-    quiet: false
-  });
 }
 
 enableMocking().then(() => {

@@ -9,7 +9,7 @@ A modern React single-page application demonstrating secure JWT authentication w
 - **Protected Routes** - Route guards for authenticated access
 - **Form Validation** - React Hook Form with real-time validation
 - **Server State Management** - React Query for API calls
-- **Mock API** - MSW (Mock Service Worker) for development
+- **Mock API** - MSW for local development, Vercel Functions for production
 
 ## Tech Stack
 
@@ -18,7 +18,8 @@ A modern React single-page application demonstrating secure JWT authentication w
 - Axios with interceptors
 - React Query (TanStack Query)
 - React Hook Form
-- MSW for API mocking
+- MSW for local API mocking
+- Vercel Serverless Functions for production
 
 ## Getting Started
 
@@ -35,6 +36,15 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/voleviettu/react-auth)
+
+Or manually:
+1. Push your code to GitHub
+2. Import the repository in Vercel
+3. Deploy (Vercel auto-detects Vite configuration)
 
 ## Demo Credentials
 
@@ -53,9 +63,19 @@ src/
 ├── components/       # Reusable components (ProtectedRoute)
 ├── context/          # Auth context and state management
 ├── lib/              # Axios client and React Query config
-├── mocks/            # MSW handlers for mock API
+├── mocks/            # MSW handlers for local development
 ├── pages/            # Login and Dashboard pages
 └── App.jsx           # Main app with routing
+
+api/                  # Vercel Serverless Functions
+├── auth/
+│   ├── login.js
+│   ├── refresh.js
+│   └── logout.js
+├── user/
+│   └── me.js
+└── data/
+    └── protected.js
 ```
 
 ## How It Works
